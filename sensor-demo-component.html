@@ -1,0 +1,85 @@
+<link rel="import" href="at-core-resize-sensor.html">
+<link rel="import" href="../layout/layout.html">
+
+<dom-module id="sensor-demo-component">
+  <style>
+    .wrapper {
+      position: relative;
+    }
+
+    .clear-float {
+      clear: both;
+    }
+
+    .column {
+      margin: 0 2px 2px 2px;
+      padding: 0 5px;
+      border: 1px dotted #000055;
+      box-shadow: 2px 2px 1px rgba(0, 0, 32, 0.5);
+    }
+  </style>
+  <template>
+    <div class="wrapper">
+      <at-core-resize-sensor id="resizeSensor"></at-core-resize-sensor>
+      <div class="clear-float"></div>
+      <div class="vertical layout">
+        <div>
+          <h4>This is component resizing demo </h4>
+        </div>
+        <div class="">
+          <p>
+            Layout container has width of <b><span id="widthEcho"></span>px</b>
+          </p>
+        </div>
+        <div id="layoutContainer" class="horizontal layout">
+          <div class="column flex-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <div class="column flex-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <div class="column flex-4">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'sensor-demo-component',
+      properties: {
+
+      },
+      _scopeCssViaAttr: true,
+      attached: function () {
+        var resizeSensor = this.$.resizeSensor;
+        var widthEcho = this.$.widthEcho;
+        var layoutContainer = this.$.layoutContainer;
+
+        Polymer.dom(widthEcho).innerHTML = resizeSensor.queryWidth();
+        resizeSensor.addEventListener('resize-sensed', function (event) {
+          var width = event.detail.value.width;
+          Polymer.dom(widthEcho).innerHTML = width;
+
+          if (width < 601) {
+            Polymer.dom(layoutContainer).classList.remove('horizontal');
+            Polymer.dom(layoutContainer).classList.add('vertical');
+          } else {
+            Polymer.dom(layoutContainer).classList.remove('vertical');
+            Polymer.dom(layoutContainer).classList.add('horizontal');
+          }
+        });
+      }
+    });
+  </script>
+</dom-module>
