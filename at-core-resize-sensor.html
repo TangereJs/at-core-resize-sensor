@@ -21,6 +21,7 @@
       _scopeCssViaAttr: true,
       attached: function() {
         // debugger;
+        var self = this;
         var element = this.$.element;
         var callback = this.resizeCallback.bind(this);
         /**
@@ -109,7 +110,7 @@
             lastWidth = element.offsetWidth;
             lastHeight = element.offsetHeight;
           };
-
+          self.reset = reset;
           reset();
 
           var changed = function() {
@@ -163,6 +164,9 @@
             ResizeSensor.detach(element);
           }
         };
+
+      },
+      reset: function () {
 
       },
       detached: function() {
