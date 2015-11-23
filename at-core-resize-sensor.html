@@ -86,12 +86,13 @@
             '</div>';
           Polymer.dom(element).appendChild(element.resizeSensor);
 
-          if (!{
-              fixed: 1,
-              absolute: 1
-            }[getComputedStyle(element, 'position')]) {
-            element.style.position = 'relative';
-          }
+          // this if is causing bugs when browser cache is disabled in chrome
+          // if (!{
+          //     fixed: 1,
+          //     absolute: 1
+          //   }[getComputedStyle(element, 'position')]) {
+          //   element.style.position = 'absolute';
+          // }
 
           var expand = element.resizeSensor.childNodes[0];
           var expandChild = expand.childNodes[0];
