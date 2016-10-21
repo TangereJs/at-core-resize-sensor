@@ -1,3 +1,5 @@
+<link rel="import" href="../tangere/tangere.html">
+
 <dom-module id="at-core-resize-sensor">
   <template>
     <style>
@@ -180,10 +182,15 @@
         var computedStyle = window.getComputedStyle(this.$.element, null);
         var computedWidth = computedStyle.getPropertyValue('width');
         var width = parseInt(computedWidth.replace('px', ''));
+        var computedHeight = computedStyle.getPropertyValue('height');
+        var height = parseInt(computedHeight.replace('px', ""));
         this.fire('resize-sensed', {
           value: {
-            width: width
+            width: width,
+            height: height
           }
+        }, {
+          bubbles: false
         });
       },
       queryWidth: function() {
