@@ -4,6 +4,6 @@
   "private": true,
   "dependencies": {
     "tangere": "TangereJs/tangere#master",
-    "layout": "polymer/layout#master",
+    "layout": "polymer/layout#master"
   }
 }
