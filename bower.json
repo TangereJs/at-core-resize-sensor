@@ -3,6 +3,7 @@
   "version": "0.0.1.1",
   "private": true,
   "dependencies": {
-    "tangere": "TangereJs/tangere#0.8-preview"
+    "tangere": "TangereJs/tangere#0.8-preview",
+    "layout": "polymer/layout#master",
   }
 }
