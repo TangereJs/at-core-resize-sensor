@@ -1,25 +1,27 @@
+<link rel="import" href="../tangere/tangere.html">
+
 <dom-module id="at-core-resize-sensor">
-  <style>
-    object {
-      position: absolute;
-      float: left;
-      z-index: -10;
-      width: 100%;
-      height: 100%;
-    }
-  </style>
   <template>
+    <style>
+      object {
+        position: absolute;
+        float: left;
+        z-index: -10;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
     <object id="element"></object>
   </template>
   <script>
+    'use strict';
     Polymer({
       is: 'at-core-resize-sensor',
       properties: {
 
       },
-      _scopeCssViaAttr: true,
       attached: function() {
-        // debugger;
+        var self = this;
         var element = this.$.element;
         var callback = this.resizeCallback.bind(this);
         /**
@@ -84,12 +86,13 @@
             '</div>';
           Polymer.dom(element).appendChild(element.resizeSensor);
 
-          if (!{
-              fixed: 1,
-              absolute: 1
-            }[getComputedStyle(element, 'position')]) {
-            element.style.position = 'relative';
-          }
+          // this if is causing bugs when browser cache is disabled in chrome
+          // if (!{
+          //     fixed: 1,
+          //     absolute: 1
+          //   }[getComputedStyle(element, 'position')]) {
+          //   element.style.position = 'absolute';
+          // }
 
           var expand = element.resizeSensor.childNodes[0];
           var expandChild = expand.childNodes[0];
@@ -108,7 +111,7 @@
             lastWidth = element.offsetWidth;
             lastHeight = element.offsetHeight;
           };
-
+          self.reset = reset;
           reset();
 
           var changed = function() {
@@ -164,6 +167,9 @@
         };
 
       },
+      reset: function() {
+
+      },
       detached: function() {
         var element = this.$.element;
         if (element.resizeSensor) {
@@ -176,13 +182,18 @@
         var computedStyle = window.getComputedStyle(this.$.element, null);
         var computedWidth = computedStyle.getPropertyValue('width');
         var width = parseInt(computedWidth.replace('px', ''));
+        var computedHeight = computedStyle.getPropertyValue('height');
+        var height = parseInt(computedHeight.replace('px', ""));
         this.fire('resize-sensed', {
           value: {
-            width: width
+            width: width,
+            height: height
           }
+        }, {
+          bubbles: false
         });
       },
-      queryWidth: function () {
+      queryWidth: function() {
         var computedStyle = window.getComputedStyle(this.$.element, null);
         var computedWidth = computedStyle.getPropertyValue('width');
         var width = parseInt(computedWidth.replace('px', ''));

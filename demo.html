@@ -5,7 +5,8 @@
   <meta charset="utf-8">
   <title>This is component resizing demo</title>
   <script src="../webcomponentsjs/webcomponents-lite.js" charset="utf-8"></script>
-  <link rel="import" href="../polymer/polymer.html">
+  <link rel="import" href="../tangere/tangere.html">
+  <link rel="import" href="../layout/layout.html">
   <link rel="import" href="sensor-demo-component.html">
   <style>
 
@@ -13,7 +14,17 @@
 </head>
 
 <body>
-  <sensor-demo-component></sensor-demo-component>
+  <div class="horizontal layout">
+    <div class="vertical layout flex-4">
+      <sensor-demo-component></sensor-demo-component>
+    </div>
+    <div class="vertical layout flex-4">
+      <sensor-demo-component></sensor-demo-component>
+    </div>
+    <div class="vertical layout flex-4">
+      <sensor-demo-component></sensor-demo-component>
+    </div>
+  </div>
 </body>
 
 </html>

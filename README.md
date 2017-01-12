@@ -50,3 +50,6 @@ Attach to `resize-sensed` event to be notified when width of the parent changes.
 #### 4. Initial width of the parent
 Inside `attached` callback call at-core-resize-sensor.queryWidth function to get the initial width of the parent.
 #### 5. Enjoy life
+
+### When programmatically populating the html ...
+at-core-resize-sensor doesn't automatically update its state. After  programmatically modifying the html call `at-core-resize-sensor.reset()` function to re-initialize at-core-resize-sensor state.
