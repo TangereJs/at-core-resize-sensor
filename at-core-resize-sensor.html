@@ -18,7 +18,10 @@
     Polymer({
       is: 'at-core-resize-sensor',
       properties: {
-
+        mode: {
+          type: String,
+          value: "width"   // width, height, both
+        },
       },
       attached: function() {
         var self = this;
@@ -184,14 +187,27 @@
         var width = parseInt(computedWidth.replace('px', ''));
         var computedHeight = computedStyle.getPropertyValue('height');
         var height = parseInt(computedHeight.replace('px', ""));
-        this.fire('resize-sensed', {
-          value: {
-            width: width,
-            height: height
-          }
-        }, {
-          bubbles: false
-        });
+        var changed = !(this._last === true);
+
+        if (this._last) {
+          if (this.mode != "width" && (height != this._lastHeight)) changed = true;
+          if (this.mode != "height" && (width != this._lastWidth)) changed = true;
+        }
+
+        if (changed) {
+          this.fire('resize-sensed', {
+            value: {
+              width: width,
+              height: height
+            }
+          }, {
+            bubbles: false
+          });
+        }
+
+        this._lastWidth = width;
+        this._lastHeight = height;
+        this._last = true;
       },
       queryWidth: function() {
         var computedStyle = window.getComputedStyle(this.$.element, null);
