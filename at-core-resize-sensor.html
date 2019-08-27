@@ -214,6 +214,13 @@
         var computedWidth = computedStyle.getPropertyValue('width');
         var width = parseInt(computedWidth.replace('px', ''));
         return width;
+      },
+
+      queryHeight: function() {
+        var computedStyle = window.getComputedStyle(this.$.element, null);
+        var computedHeight = computedStyle.getPropertyValue('height');
+        var height = parseInt(computedHeight.replace('px', ''));
+        return height;
       }
     });
   </script>
